@@ -9,12 +9,12 @@ import br.com.treinaweb.adoteumpet.core.models.Pet;
 public class PetMapper {
 
     public PetResponse toResponse(Pet pet) {
-        var PetResponse = new PetResponse();
-        PetResponse.setId(pet.getId());
-        PetResponse.setNome(pet.getNome());
-        PetResponse.setHistoria(pet.getHistoria());
-        PetResponse.setNome(pet.getFoto());
-        return PetResponse;
+        return PetResponse.builder()
+            .id(pet.getId())
+            .nome(pet.getNome())
+            .historia(pet.getHistoria())
+            .foto(pet.getFoto())
+            .build();
     }
     
 }

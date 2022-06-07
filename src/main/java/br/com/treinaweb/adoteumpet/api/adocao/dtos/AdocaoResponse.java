@@ -3,10 +3,12 @@ import java.math.BigDecimal;
 
 import br.com.treinaweb.adoteumpet.api.pet.dtos.PetResponse;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 

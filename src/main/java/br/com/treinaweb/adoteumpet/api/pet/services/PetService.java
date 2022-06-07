@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import br.com.treinaweb.adoteumpet.api.pet.dtos.PetRequest;
 import br.com.treinaweb.adoteumpet.api.pet.dtos.PetResponse;
 import br.com.treinaweb.adoteumpet.api.pet.mappers.PetMapper;
 import br.com.treinaweb.adoteumpet.core.repositories.PetRepository;
@@ -27,4 +28,9 @@ public class PetService {
 
     }
     
+    public PetResponse create(PetRequest PetRequest) {
+        var petToCreate = petMapper.toModel(PetRequest);
+        var createdPet = petRepository.save(petToCreate);
+        return petMapper.toResponse(createdPet);
+    }
 }

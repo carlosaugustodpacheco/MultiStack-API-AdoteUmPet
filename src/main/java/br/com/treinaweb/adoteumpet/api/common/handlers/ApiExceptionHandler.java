@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
+
 import br.com.treinaweb.adoteumpet.api.common.dtos.ErrorResponse;
 import lombok.var;
 
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private final SnakeCaseStrategy snakeCaseStrategy = new SnakeCaseStrategy();
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -44,7 +48,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     private Map<String, List<String>> convertFieldErrors(List<FieldError> fieldErrors) {
         var errors = new HashMap<String, List<String>>();
         fieldErrors.stream().forEach(fieldError -> {
-            var field = fieldError.getField();
+            var field = snakeCaseStrategy.translate(fieldError.getField());
             if (errors.containsKey(field)) {
                 errors.get(field).add(fieldError.getDefaultMessage());
             } else {
